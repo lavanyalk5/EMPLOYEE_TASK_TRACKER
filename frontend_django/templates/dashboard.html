@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Task Tracker</title>
+</head>
+<body>
+<h1>Welcome {{ user.username }}</h1>
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="title" placeholder="Task title" required>
+    <input type="text" name="description" placeholder="Task description" required>
+    <input type="number" name="duration" placeholder="Minutes" required>
+    <button type="submit">Add Task</button>
+</form>
+
+<h2>Your Tasks</h2>
+<ul>
+    {% for task in tasks %}
+        <li>{{ task.title }} - {{ task.duration }} min</li>
+    {% endfor %}
+</ul>
+
+<h2>Analytics</h2>
+<div id="analytics">Loading analytics...</div>
+
+<script>
+fetch("http://127.0.0.1:8001/analytics")
+    .then(res => res.json())
+    .then(data => {
+        // Check if backend sent error
+        if (data.error) {
+            document.getElementById('analytics').innerHTML = 
+                `<p style="color:red;">Error: ${data.error}</p>`;
+            return;
+        }
+
+        // Display analytics
+        document.getElementById('analytics').innerHTML = `
+            <p>Total Tasks: ${data.total_tasks}</p>
+            <p>Total Duration: ${data.total_duration} min</p>
+            <h3>Leaderboard:</h3>
+            <ul>${data.leaderboard.map(u => `<li>${u.user}: ${u.total_duration} min</li>`).join('')}</ul>
+        `;
+    })
+    .catch(err => {
+        document.getElementById('analytics').innerHTML = `<p style="color:red;">Fetch failed</p>`;
+        console.error(err);
+    });
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>All Tasks</title></head>
+<body>
+<h1>All Tasks</h1>
+<ul>
+    {% for task in tasks %}
+        <li>{{ task.title }} - {{ task.assigned_to.username }} ({{ task.duration }} min)</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'dashboard' %}">Back</a>
+</body>
+</html>

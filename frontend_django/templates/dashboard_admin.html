@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>Admin Dashboard</title></head>
+<body>
+<h1>Hello {{ user.username }} (Business Analyst)</h1>
+
+<h2>Assign Task</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Assign Task</button>
+</form>
+
+<h2>All Tasks</h2>
+<ul>
+    {% for task in tasks %}
+        <li>{{ task.title }} - {{ task.assigned_to.username }} ({{ task.duration }} min)</li>
+    {% endfor %}
+</ul>
+
+<a href="{% url 'logout' %}">Logout</a>
+</body>
+</html>
