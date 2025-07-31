@@ -1,18 +1,81 @@
 <!DOCTYPE html>
 <html>
-<head><title>Employee Dashboard</title></head>
-<body>
-<h1>Hello {{ user.username }}</h1>
-<h2>Your Tasks</h2>
-<ul>
-    {% for task in tasks %}
-        <li>{{ task.title }} - {{ task.duration }} min<br>{{ task.description }}</li>
-    {% empty %}
-        <li>No tasks assigned.</li>
-    {% endfor %}
-</ul>
+<head>
+    <title>Employee Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 40px 0;
+            display: flex;
+            justify-content: center;
+        }
 
-<a href="{% url 'all_tasks' %}">Show All (Optional)</a><br>
-<a href="{% url 'logout' %}">Logout</a>
+        .dashboard-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 800px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #2575fc;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #f2f2f2;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-radius: 6px;
+            line-height: 1.6;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #2575fc;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Hello {{ user.username }}</h1>
+        <h2>Your Tasks</h2>
+        <ul>
+            {% for task in tasks %}
+                <li>
+                    <strong>{{ task.title }}</strong> - {{ task.duration }} min<br>
+                    {{ task.description }}
+                </li>
+            {% empty %}
+                <li>No tasks assigned.</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'all_tasks' %}">Show All (Optional)</a><br>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
 </body>
 </html>
