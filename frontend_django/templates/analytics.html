@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analytics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 40px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .dashboard-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background-color: #f2f2f2;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #2575fc;
+            font-weight: bold;
+        }
+
+        .back-btn:hover {
+            text-decoration: underline;
+        }
+     
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>📊 Analytics</h1>
+        <h2>Overview</h2>
+        <div class="spinner"></div>
+        <div id="analytics">Loading analytics...</div>
+
+        <a href="{% url 'all_tasks' %}" class="back-btn">⬅ Back to All Tasks</a>
+    </div>
+
+
+<script>
+fetch("http://127.0.0.1:8001/analytics")
+    .then(res => res.json())
+    .then(data => {
+        // Delay display for 3 seconds
+        setTimeout(() => {
+            // Check if backend sent error
+            if (data.error) {
+                document.getElementById('analytics').innerHTML = 
+                    `<p style="color:red;">Error: ${data.error}</p>`;
+                return;
+            }
+
+            // Build leaderboard list
+            const leaderboardHTML = data.leaderboard
+                .map(u => `<li>${u.username}: ${u.total_time} min</li>`)
+                .join('');
+
+            // Display analytics
+            document.getElementById('analytics').innerHTML = `
+                <p>Total Tasks: ${data.total_tasks}</p>
+                <p>Total Duration: ${data.total_duration} min</p>
+                <h3>Leaderboard:</h3>
+                 <ul>${data.leaderboard.map(u => `<li>${u.user}: ${u.total_duration} min</li>`).join('')}</ul>`;
+        }, 2000); // 3000ms = 3 seconds
+    })
+    .catch(err => {
+        document.getElementById('analytics').innerHTML = `<p style="color:red;">Fetch failed</p>`;
+        console.error(err);
+    });
+</script>
+
+</body>
+</html>

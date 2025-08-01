@@ -55,3 +55,7 @@ def dashboard_employee(request):
 def all_tasks(request):
     tasks = Task.objects.all()
     return render(request, 'all_tasks.html', {'tasks': tasks})
+
+def analytics_page(request):
+    return render(request, 'analytics.html')
+

@@ -57,6 +57,19 @@
         a:hover {
             text-decoration: underline;
         }
+         button {
+            padding: 12px 20px;
+            background-color: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #1a5ddb;
+        }
     </style>
 </head>
 <body>
@@ -74,8 +87,11 @@
             {% endfor %}
         </ul>
 
-        <a href="{% url 'all_tasks' %}">Show All (Optional)</a><br>
-        <a href="{% url 'logout' %}">Logout</a>
+        <a href="{% url 'all_tasks' %}">Show All (Optional)</a><br><br>
+         <form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
     </div>
 </body>
 </html>

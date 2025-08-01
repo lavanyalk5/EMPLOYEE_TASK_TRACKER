@@ -51,8 +51,8 @@ def analytics():
         cursor.execute("""
             SELECT auth_user.username, SUM(tasks_task.duration)
             FROM tasks_task
-            JOIN auth_user ON tasks_task.user_id = auth_user.id
-            GROUP BY tasks_task.user_id
+            JOIN auth_user ON tasks_task.assigned_to_id= auth_user.id
+            GROUP BY tasks_task.assigned_to_id
             ORDER BY SUM(tasks_task.duration) DESC
             LIMIT 5
         """)

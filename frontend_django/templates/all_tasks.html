@@ -1,13 +1,140 @@
 <!DOCTYPE html>
 <html>
-<head><title>All Tasks</title></head>
+<head>
+    <title>All Tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 40px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .dashboard-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 900px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2575fc;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+
+        td {
+            padding: 12px;
+            background-color: #f9f9f9;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #2575fc;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #2575fc;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #1a5ddb;
+        }
+        .button-row {
+    display: flex;
+    justify-content: space-between; /* Left & Right corners */
+    margin-top: 30px;
+}
+
+.btn-link {
+    background-color: #2575fc;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-link:hover {
+    background-color: #1a5ddb;
+}
+    </style>
+</head>
 <body>
-<h1>All Tasks</h1>
-<ul>
-    {% for task in tasks %}
-        <li>{{ task.title }} - {{ task.assigned_to.username }} ({{ task.duration }} min)</li>
-    {% endfor %}
-</ul>
-<a href="{% url 'dashboard' %}">Back</a>
+    <div class="dashboard-container">
+        <h1>All Tasks Assigned to Employees</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Description</th>
+                    <th>Duration (min)</th>
+                    <th>Assigned To</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.duration }}</td>
+                    <td>{{ task.assigned_to.username }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" style="text-align:center;">No tasks available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+       <div class="button-row">
+    <a href="{% url 'dashboard_employee' %}" class="btn-link">⬅ Back to Dashboard</a>
+    <a href="{% url 'analytics_page' %}" class="btn-link">📊 Show Analytics</a>
+</div>
+        
+        
+    </div>
 </body>
 </html>

@@ -93,21 +93,19 @@
     <div class="dashboard-container">
         <h1>Hello {{ user.username }} (Business Analyst)</h1>
 
-        <h2>Assign Task</h2>
+        <h2>Assign Task</h2><br>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Assign Task</button>
         </form>
+    <a href="{% url 'all_tasks' %}">Show All</a><br>
 
-        <h2>All Tasks</h2>
-        <ul>
-            {% for task in tasks %}
-                <li>{{ task.title }} - {{ task.assigned_to.username }} ({{ task.duration }} min)</li>
-            {% endfor %}
-        </ul>
 
-        <a href="{% url 'logout' %}">Logout</a>
+        <form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
     </div>
 </body>
 </html>

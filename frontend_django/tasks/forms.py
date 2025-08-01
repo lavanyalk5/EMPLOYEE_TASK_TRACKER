@@ -8,3 +8,6 @@ class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
         fields = ['assigned_to', 'title', 'description', 'duration']
+
+
+

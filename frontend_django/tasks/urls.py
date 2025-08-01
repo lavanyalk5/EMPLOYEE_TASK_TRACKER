@@ -8,4 +8,6 @@ urlpatterns = [
     path('employee-dashboard/', views.dashboard_employee, name='dashboard_employee'),
     path('all-tasks/', views.all_tasks, name='all_tasks'),
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
+    path('analytics/', views.analytics_page, name='analytics_page'),
+
 ]

@@ -127,12 +127,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 JAZZMIN_SETTINGS = {
     "site_title": "My Admin",
     "site_header": "My Project Admin",
-    "site_brand": "My Project",
+    "site_brand": "Task Tracker",
     "welcome_sign": "Welcome to My Project Admin",
     "copyright": "My Company 2025",
     
     # Theme colors
-    "theme": "cosmo",  # Choose from bootstrap themes like 'flatly', 'lux', 'cyborg', etc.
+    "theme": "flatly",  # Choose from bootstrap themes like 'flatly', 'lux', 'cyborg', etc.
     
     # Icons for apps and models
     "icons": {
